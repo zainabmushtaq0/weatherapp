@@ -21,7 +21,7 @@ function App() {
 
 
  setRecentSearch(prev => {
-    const updated = [inputCity, ...prev.filter(c => c !== inputCity)];
+    const updated = [inputCity, ...prev];
     return updated.slice(0, 5); 
   });
  inputRef.current.value = "";
@@ -29,7 +29,7 @@ function App() {
   function handleunits(){
      setUnit(prev => (prev==='metric'?'imperial':'metric'));
   }
-   const unitSymbol = (unit ==='metric'?'°C':'°F');
+   const unitSymbol = (unit ==='metric'?'°C':'°F' );
 
   return (
 
@@ -51,7 +51,7 @@ function App() {
       {/* {data && !loading ? ( */}
          {data&& !loading&& data.main && data.wind && data.weather ?
           <>
-        <div className="bg-white shadow-md rounded-xl p-4 space-y-2 text-blue-900 w-fit">
+        <div className="bg-white rounded-xl p-4 space-y-2 text-blue-900 ">
           <h2 className="text-xl font-semibold">{data.name}</h2>
          
           <p className="flex items-center gap-2">
@@ -62,6 +62,7 @@ function App() {
             <FaWind size={28} /> Wind Speed: {data.wind.speed}{unit==="metric"?"m/s":"mph"}
           </p>
           <p className="text-lg"> Temperature: {data.main.temp}{unitSymbol} <button onClick={handleunits}>Switch to {unit==="metric"?"Celsius":"Fahrenhite"}</button></p>
+
           <p className="capitalize bg-blue-950 text-blue-100 rounded-lg"> {data.weather[0].description}</p>
   
 
@@ -75,7 +76,7 @@ function App() {
         {}
 
       
-        <p className="text-gray-600">Loading weather data...</p>
+        {/* <p className="text-gray-600">Loading weather data...</p> */}
      
     </div>
   );
